@@ -19,7 +19,7 @@ router.post('/', (req, res, next) => {
 			page: 1,
 			title: '',
 			rating: { l: 0, u: 10.0 },
-			year: { l: 1900, u: 2018 },
+			year: { l: 1900, u: 2019 },
 			genres: [],
 			directors: [],
 			actors: [],
@@ -110,7 +110,7 @@ router.post('/', (req, res, next) => {
       if (filterGenres && filtersRegex.test(filterGenres)) filters.genres = filterGenres
       if (filterActors && filtersRegex.test(filterActors)) filters.actors = filterActors
 			if (filterDirectors && filtersRegex.test(filterDirectors)) filters.directors = filterDirectors
-			
+
       if (videos_viewed && (videos_viewed == "Y" || videos_viewed == "N")) filters.videos_viewed = videos_viewed
 
       getVideos()
@@ -122,3 +122,8 @@ router.post('/', (req, res, next) => {
 });
 
 module.exports = router;
+
+/**
+insert into `films` (`id`, `imdb_id`, `title`, `magnet`)
+values (1, 'tt2015381', 'Guardians of the Galaxy', 'magnet:?xt=urn:btih:51054b7e16ca53314fda7cdb3d5abb3c829863ce&dn=Guardians.of.the.Galaxy.2014.720p.BluRay.H264.AAC-RARBG&tr=http%3A%2F%2Ftracker.trackerfix.com%3A80%2Fannounce&tr=udp%3A%2F%2F9.rarbg.me%3A2750&tr=udp%3A%2F%2F9.rarbg.to%3A2780');
+*/
