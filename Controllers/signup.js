@@ -34,7 +34,7 @@ function checkCredentials(req, res, next) {
 	if (req.cookies.i18n == undefined) res.setLocale('en')
 	else res.setLocale(req.cookies.i18n)
 	let {login, first_name, last_name, email, password, psswd_confirm} = req.body
-	if (req.file && login && first_name && last_name && email && password && psswd_confirm) return next();
+	if (login && first_name && last_name && email && password && psswd_confirm) return next();
 
 	req.flashAdd('tabError', res.__('Missing fields'));
 	res.redirect('back');
@@ -44,7 +44,7 @@ function checkFileType(file, cb){
     const filetypes = /jpeg|jpg|png|gif/;
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
 		const mimetype = filetypes.test(file.mimetype);
-		
+
     if(mimetype && extname){
         return cb(null,true);
     } else {
