@@ -120,8 +120,8 @@ module.exports = (passport) => {
 function isSignUpValid (req, login, password, rows) {
     const pwdRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,20})");
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const nameRegex = new RegExp("^[a-zA-Z_]{3,16}$");
-    const loginRegex = new RegExp("^[a-zA-Z0-9_]{3,16}$");
+    const nameRegex = new RegExp("^[a-zA-Z_]{1,16}$");
+    const loginRegex = new RegExp("^[a-zA-Z0-9_]{1,16}$");
     let result = true;
 
     if (rows.length) {
