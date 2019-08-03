@@ -7,11 +7,18 @@ module.exports = class Sql {
 		this.sql = sql.createPool({
 			host: '127.0.0.1',
 			user: 'root',
-			password: 'admin',
+			password: 'xvzk7788ooo',
 			database: 'hypertube',
 			port: '3306'
 		});
 	}
+
+	//ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'admin'
+	//UPDATE mysql.user SET Password=PASSWORD('xvzk7788ooo') WHERE User='root';
+	//FLUSH PRIVILEGES;
+	//ALTER USER 'root'@'localhost' IDENTIFIED BY 'admin';
+	//use mysql;
+	//update user set authentication_string=password(''), plugin='mysql_native_password' where user='root';
 
 	select(columns, table, innerjoin, condition, orderby, more = "", between = "") {
 		let request = "SELECT " + columns + " FROM " + table;
