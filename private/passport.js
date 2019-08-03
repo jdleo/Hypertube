@@ -48,13 +48,11 @@ module.exports = (passport) => {
                     last_name: capitalizeFirstLetter(req.body.last_name),
                     photo,
                     email: req.body.email,
+                    email_confirmed: 1,
                     token: bcrypt.hashSync('hypertube'+login, bcrypt.genSaltSync(9)).replace(/\//g, '')
                 };
                 sql.insert('users', newUser).then(result => {
-                    let link = 'http://localhost:3001/confirm/'+newUser.login+'/'+newUser.token
-                    let msgtext = "Valider votre compte en vous rendant a cette adresse : "+link
-                    let msghtml = "<p>Valider votre compte en "+"<a href="+link+">cliquant ici</a></p>"
-                    go("Hypertube", msgtext, msghtml, newUser.email)
+
                 })
             }
         });
