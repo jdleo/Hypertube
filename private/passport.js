@@ -58,38 +58,6 @@ module.exports = (passport) => {
                 })
             }
         });
-
-        let go = (subj, msgtext, msghtml, towho) => {
-            nodemailer.createTestAccount((err, account) => {
-            if (err) {
-            console.error('Failed to create a testing account. ' + err.message);
-            return process.exit(1);
-            }
-
-            // create reusable transporter object using the default SMTP transport
-            let transporter = nodemailer.createTransport({
-                port: 1025,
-                ignoreTLS : true
-            });
-
-            // setup email data with unicode symbols
-            let mailOptions = {
-                from: '"Hypertube admins 👻" <admins@hypertube.com>', // sender address
-                to: towho, // list of receivers
-                subject: subj, // Subject line
-                text: msgtext, // plain text body
-                html: msghtml // html body
-            };
-
-            transporter.sendMail(mailOptions, (err, info) => {
-                if (err) {
-                console.log('Error occurred. ' + err.message);
-                return process.exit(1);
-                }
-                return done(null, null, req.flashAdd('tabSuccess', 'Bravo, finalisez votre compte en cliquant sur le lien que vous venez de recevoir par email!'));
-            });
-        });
-        }
     }))
 
     // =========================================================================
