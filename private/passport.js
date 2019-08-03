@@ -10,17 +10,6 @@ const bcrypt = require('bcrypt-nodejs');
 const SQL = require('../Model/SQL.class');
 const sql = new SQL();
 
-const GITHUB_APP_ID = ''
-const GITHUB_APP_SECRET = ''
-const LINKEDIN_APP_ID = ''
-const LINKEDIN_APP_SECRET = ''
-const GOOGLE_CLIENT_ID = ''
-const GOOGLE_CLIENT_SECRET = ''
-const TWITTER_CONSUMER_KEY = ''
-const TWITTER_CONSUMER_SECRET = ''
-const FORTYTWO_APP_ID = ''
-const FORTYTWO_APP_SECRET = ''
-
 module.exports = (passport) => {
 
     passport.serializeUser((user, done) => {
@@ -216,14 +205,14 @@ module.exports = (passport) => {
     // we are using named strategies since we have one for login and one for signup
     // by default, if there was no name, it would just be called 'local'
     // Set The Storage Engine
-    
+
     passport.use('local-signup', new LocalStrategy({
         usernameField: 'login',
         passwordField: 'password',
         passReqToCallback: true
     }, (req, login, password, done) => {
         let photo;
-        if (Object.keys(req.file).length !== 0) {
+        if (req.file) {
             photo = '/pics/'+req.file.filename;
         } else photo = '/pics/default.jpg';
         sql.select('*', 'users', {}, {login: login, email: req.body.email}).then(result => {
@@ -253,13 +242,13 @@ module.exports = (passport) => {
             console.error('Failed to create a testing account. ' + err.message);
             return process.exit(1);
             }
-        
+
             // create reusable transporter object using the default SMTP transport
             let transporter = nodemailer.createTransport({
                 port: 1025,
                 ignoreTLS : true
             });
-        
+
             // setup email data with unicode symbols
             let mailOptions = {
                 from: '"Hypertube admins 👻" <admins@hypertube.com>', // sender address
@@ -268,7 +257,7 @@ module.exports = (passport) => {
                 text: msgtext, // plain text body
                 html: msghtml // html body
             };
-        
+
             transporter.sendMail(mailOptions, (err, info) => {
                 if (err) {
                 console.log('Error occurred. ' + err.message);
@@ -296,7 +285,7 @@ module.exports = (passport) => {
                     return done(null, false, req.flashAdd('tabError', 'Cet utilisateur n\'existe pas.'));
                 }
                 if (result[0].email_confirmed == 0)  return done(null, false, req.flashAdd('tabError', 'L\'email de ce compte n\'a pas encore ete confirme'));
-                
+
                 if (!bcrypt.compareSync(password, result[0].psswd)) return done(null, false, req.flashAdd('tabError', 'Oops! Mauvais mot de passe.'));
 
                 return done(null, result[0]);
