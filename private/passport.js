@@ -35,7 +35,7 @@ module.exports = (passport) => {
         passReqToCallback: true
     }, (req, login, password, done) => {
         let photo;
-        if (Object.keys(req.file).length !== 0) {
+        if (req.file) {
             photo = '/pics/'+req.file.filename;
         } else photo = '/pics/default.jpg';
         sql.select('*', 'users', {}, {login: login, email: req.body.email}).then(result => {
