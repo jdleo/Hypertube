@@ -5,11 +5,11 @@ const sql = require('mysql');
 module.exports = class Sql {
 	constructor() {
 		this.sql = sql.createPool({
-			host: '',
-			user: '',
-			password: '',
-			database: '',
-			port: ''
+			host: '127.0.0.1',
+			user: 'root',
+			password: 'admin',
+			database: 'hypertube',
+			port: '3306'
 		});
 	}
 
