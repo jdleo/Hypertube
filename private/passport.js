@@ -144,10 +144,6 @@ function isSignUpValid (req, login, password, rows) {
         req.flashAdd('tabError', 'Les mots de passe ne correspondent pas.');
         result = false
     }
-    if (!pwdRegex.test(password)) {
-        req.flashAdd('tabError', 'Mot de passe en carton. ([a-z]+[A-Z]+[0-9])*(6-20)');
-        result = false
-    }
     if (!emailRegex.test(req.body.email)) {
         req.flashAdd('tabError', 'Syntaxe de l\'email invalide');
         result = false
@@ -159,12 +155,12 @@ function isSignUpValid (req, login, password, rows) {
 
 function isLengthOkay(champs, value, req) {
     let result = true
-    if (value.length < 3) {
-        req.flashAdd('tabError', champs+': trop court');
+    if (value.length < 2) {
+        req.flashAdd('tabError', champs+': too short');
         result = false
     }
     else if (value.length > 16) {
-        req.flashAdd('tabError', champs+': trop long');
+        req.flashAdd('tabError', champs+': too long');
         result = false
     }
     return result
